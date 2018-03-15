@@ -1,16 +1,34 @@
 import React, {Component} from 'react';
+import {Grid, Row, Col} from 'react-bootstrap';
 import './Cards.css';
 class RecipeCards extends Component {
+    state = {
+        recipes: this.props.recipes || []
+    };
     render() {
         return (
-            <div className="card border-info mb-3">
-                <div className="card-header">Header</div>
-                <div className="card-body">
-                    <h4 className="card-title">Info card title</h4>
-                    <p className="card-text">Some quick example text to build on the card title and make
-                        up the bulk of the card's content.</p>
-                </div>
+            <div className="container">
+                <Grid>
+                    <Row>
+                        {this
+                            .state
+                            .recipes
+                            .map(recipeList => (
+                                <Col s={12} m={4} lg={4}>
+                                    <div className="card border-info mb-3">
+                                        <div className="card-header">{recipeList.name}</div>
+                                        <div className="card-body">
+                                            <p className="card-text">{recipeList.ingredients}</p>
+                                        </div>
+                                    </div>
+                                </Col>
+                            ))}
+
+                    </Row>
+                </Grid>
+
             </div>
+
         )
     }
 }

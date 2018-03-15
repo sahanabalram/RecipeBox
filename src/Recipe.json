@@ -1,0 +1,23 @@
+{
+
+
+    "recipes": [
+        {
+            "name": "Bread Pizza",
+            "ingredients": ["Bread", "Chesse", "Onions", "Capsicum", "Oregano", "Basil", "Chilli Flakes"]
+        },
+        {
+            "name": "Cereal",
+            "ingredients": ["Milk", "Granola Alamond"]
+        },
+        {
+            "name": "Pasta",
+            "ingredients": ["Rigatoni", "white sauce", "Chesse"]
+        },
+        {
+            "name": "Masala Fried Eggs",
+            "ingredients": ["Eggs", "Curry Leaves", "Tumeric Powder", "Red Chilli Powder", "Green Chilli", "Ginger", "Garlic"]
+        }
+    ]
+
+}

@@ -20,7 +20,7 @@ class RecipePanel extends Component {
 
 // create a new recipe
 updateRecipeName(name,ingredients) {
-    this.setState({newRecipe:{name:name,ingredients}});
+    this.setState({newRecipe:{name:name,ingredients:ingredients}});
 }
     // delete recipe function
     deleteRecipe(index) {
@@ -45,6 +45,7 @@ updateRecipeName(name,ingredients) {
     }
     render() {
         const {recipes,newRecipe} = this.state;
+         console.log(newRecipe);
         return (
             <div className="container">
                 {recipes.map((recipeList, index) => (
@@ -76,16 +77,27 @@ updateRecipeName(name,ingredients) {
                         <Modal.Title>Add Recipe</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <FormGroup>
+                    <FormGroup controlId="formBasicText">
                         <ControlLabel> Recipe Name</ControlLabel>
                         <FormControl
                         type="text"
                         value={newRecipe.name}
                         placeholder="Enter recipe name"
-                        onChange = {(event) => this.updateRecipeName(event.target.value,newRecipe.ingredients)}
+                        onChange = {(event) => this.updateRecipeName(event.target.value,newRecipe.ingredients)}>
+                        </FormControl>
+                    </FormGroup>
+                    <FormGroup controlId="formControlsTextarea">
+                        <ControlLabel> Ingredients</ControlLabel>
+                        <FormControl
+                        type="textarea"
+                        value={newRecipe.ingredients}
+                        placeholder="Enter ingredients (Separated By Comma)"
+                        onChange = {(event) => this.updateRecipeName(newRecipe.name, event.target.value.split(","))}
                         >
                        
                         </FormControl>
+
+                        
                     </FormGroup>
                     </Modal.Body>
                 </Modal>

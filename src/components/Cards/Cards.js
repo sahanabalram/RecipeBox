@@ -92,7 +92,7 @@ editIngredients(ingredients,currentIndex){
         return (
             <div className="container">
                 {recipes.map((recipeList, index) => (
-                    <PanelGroup accordion id="accordion-uncontrolled-example" defaultActiveKey="2">
+                    <PanelGroup accordion id="accordion-uncontrolled-example" defaultActiveKey="2" key={index}>
                         <Panel eventKey={index} key={index}>
                             <Panel.Heading>
                                 <Panel.Title toggle>{recipeList.name}</Panel.Title>
@@ -101,8 +101,8 @@ editIngredients(ingredients,currentIndex){
                                 <ListGroup key={index}>
                                     {recipeList
                                         .ingredients
-                                        .map(ingredient => (
-                                            <ListGroupItem>{ingredient}</ListGroupItem>
+                                        .map((ingredient,index) => (
+                                            <ListGroupItem key={index}>{ingredient}</ListGroupItem>
                                         ))}
                                 </ListGroup>
                                 <ButtonToolbar>

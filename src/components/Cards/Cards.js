@@ -6,16 +6,22 @@ import {
     Button,
     ListGroup,
     ListGroupItem,
-    Modal
+    Modal,
+    FormGroup, ControlLabel,FormControl
 } from 'react-bootstrap';
 import './Cards.css';
 
 class RecipePanel extends Component {
     state = {
         recipes: this.props.recipes || [],
-
         showAdd: false,
+        newRecipe: {name:"",ingredients:[]}
     };
+
+// create a new recipe
+updateRecipeName(name,ingredients) {
+    this.setState({newRecipe:{name:name,ingredients}});
+}
     // delete recipe function
     deleteRecipe(index) {
         // make a copy of the recipe and then delete the copy and reset the state
@@ -27,13 +33,18 @@ class RecipePanel extends Component {
         // set the state back to inital state
         this.setState({recipes});
     }
-    handleClose() {
+    // close and open the modal for add recipe
+    close = () => {
         if(this.state.showAdd) {
             this.setState({ showAdd: false });
         }
     }
+// open modal for add recipe
+    open =(state) => {
+        this.setState({[state]: true})
+    }
     render() {
-        const {recipes} = this.state;
+        const {recipes,newRecipe} = this.state;
         return (
             <div className="container">
                 {recipes.map((recipeList, index) => (
@@ -60,14 +71,26 @@ class RecipePanel extends Component {
                 ))}
 
                 {/*Modal for add recipes code */}
-                <Modal show={this.state.showAdd} onHide={this.handleClose}>
+                <Modal show={this.state.showAdd} onHide={this.close}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Add Recipe</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body></Modal.Body>
+                    <Modal.Body>
+                    <FormGroup>
+                        <ControlLabel> Recipe Name</ControlLabel>
+                        <FormControl
+                        type="text"
+                        value={newRecipe.name}
+                        placeholder="Enter recipe name"
+                        onChange = {(event) => this.updateRecipeName(event.target.value,newRecipe.ingredients)}
+                        >
+                       
+                        </FormControl>
+                    </FormGroup>
+                    </Modal.Body>
                 </Modal>
                 <ButtonToolbar>
-                    <Button bsStyle="info">Add Recipes</Button>
+                    <Button bsStyle="primary" onClick={(event)=>this.open("showAdd")}>Add Recipes</Button>
                 </ButtonToolbar>
 
             </div>

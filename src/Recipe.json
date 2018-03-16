@@ -1,25 +1,19 @@
 {
-
-
     "recipes": [
         {
             "name": "Bread Pizza",
-            "image": "http://cookdiary.net/wp-content/uploads/images/Bread-Pizza_10074.jpg",
             "ingredients": ["Bread", "Chesse", "Onions", "Capsicum", "Oregano", "Basil", "Chilli Flakes"]
         },
         {
             "name": "Cereal",
-            "image": "https://images-na.ssl-images-amazon.com/images/I/91xvQAnT6IL._SL1500_.jpg",
-            "ingredients": ["Milk", "Granola Alamond"]
+            "ingredients": ["Milk", "Granola Almond"]
         },
         {
             "name": "Pasta",
-            "image": "http://cdn-image.myrecipes.com/sites/default/files/styles/medium_2x/public/image/recipes/ay/11/rigatoni-creamy-tomato-ay-x.jpg?itok=u0Kx5HKF",
             "ingredients": ["Rigatoni", "white sauce", "Chesse"]
         },
         {
             "name": "Masala Fried Eggs",
-            "image": "https://i2.wp.com/www.cloudyscookbook.com/wp-content/uploads/2017/05/IMG_20170522_101831.jpg?zoom=2&resize=769%2C540",
             "ingredients": ["Eggs", "Curry Leaves", "Tumeric Powder", "Red Chilli Powder", "Green Chilli", "Ginger", "Garlic"]
         }
     ]

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Titles from './components/Title';
-import Recipes from './components/Recipes'; 
+// import Recipes from './components/Recipes'; 
 import RecipePanel from './components/Cards';
 import RecipeDetails from './Recipe.json';
 import './App.css';

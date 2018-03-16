@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import RecipeDetails from './Recipe.json';
 import {
     Panel,
     PanelGroup,
@@ -43,7 +44,7 @@ class RecipePanel extends Component {
             .slice();
         recipes.splice(index, 1);
         // set the state back to inital state
-        this.setState({recipes});
+        this.setState({'recipes': recipes});
     }
     // close and open the modal for add recipe
     close = () => {
@@ -56,7 +57,7 @@ class RecipePanel extends Component {
     // open modal for add recipe
     open = (state, currentIndex) => {
         this.setState({[state]: true})
-        this.setState({currentIndex});
+        // this.setState({currentIndex});
     }
     // save new recipe
     saveRecipe(newRecipe) {
@@ -65,7 +66,7 @@ class RecipePanel extends Component {
             .recipes
             .slice();
         recipes.push(newRecipe);
-        this.setState({recipes});
+        this.setState({'recipes':recipes});
         // reset the recipe
         this.setState({
             newRecipe: {
@@ -85,7 +86,7 @@ class RecipePanel extends Component {
             name: name,
             ingredients: recipes[currentIndex].ingredients
         };
-        this.setState(recipes);
+        this.setState({'recipes':recipes});
     }
     // edit ingredient
     editIngredients(ingredients, currentIndex) {
@@ -97,7 +98,7 @@ class RecipePanel extends Component {
             name: recipes[currentIndex].name,
             ingredients: ingredients
         };
-        this.setState([recipes]);
+        this.setState({'recipes':recipes});
     }
     render() {
         const {recipes, newRecipe,currentIndex} = this.state;
@@ -135,12 +136,12 @@ class RecipePanel extends Component {
                         <Modal.Title>Edit Recipe</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <FormGroup controlId="formBasicText">
+                        <FormGroup controlId="formControlsText">
                             <ControlLabel>
                                 Recipe Name</ControlLabel>
                             <FormControl
                                 type="text"
-                                value={recipes[currentIndex].name}
+                               value={recipes[currentIndex].name}
                                 placeholder="Enter recipe name"
                                 onChange=
                                 {(event) => this.editRecipeName(event.target.value)}></FormControl>
@@ -150,7 +151,7 @@ class RecipePanel extends Component {
                             <FormControl
                                 componentClass="textarea"
                                 onChange={(event) => this.editIngredients(event.target.value.split(","), currentIndex)}
-                                placeholder="textarea"/>
+                                placeholder="Enter ingredients (Separated By Commas)" value={recipes[currentIndex].ingredients}/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>

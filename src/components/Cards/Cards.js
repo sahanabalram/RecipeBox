@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import {
-    Grid,
-    Row,
-    Col,
     Panel,
     PanelGroup,
     ButtonToolbar,
@@ -14,71 +11,65 @@ import {
 import './Cards.css';
 
 class RecipePanel extends Component {
-    constructor(props, context) {
-        super(props, context);
-    
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-    
-        this.state = {
-          show: false,
-          recipes: this.props.recipes || []
-        };
-      }
-      handleClose() {
-        this.setState({ show: false });
-      }
-    
-      handleShow() {
-        this.setState({ show: true });
-      }
+    state = {
+        recipes: this.props.recipes || [],
+
+        showAdd: false,
+    };
+    // delete recipe function
+    deleteRecipe(index) {
+        // make a copy of the recipe and then delete the copy and reset the state
+        let recipes = this
+            .state
+            .recipes
+            .slice();
+        recipes.splice(index, 1);
+        // set the state back to inital state
+        this.setState({recipes});
+    }
+    handleClose() {
+        if(this.state.showAdd) {
+            this.setState({ showAdd: false });
+        }
+    }
     render() {
+        const {recipes} = this.state;
         return (
-            <div>
-                <Grid>
-                    <Row>
-                        {this
-                            .state
-                            .recipes
-                            .map(recipeList => (
-                                <Col s={12} m={12} lg={12}>
-                                    <PanelGroup accordion id="accordion-uncontrolled-example" defaultActiveKey="2">
-                                        <Panel eventKey="1">
-                                            <Panel.Heading>
-                                                <Panel.Title toggle>{recipeList.name}</Panel.Title>
-                                            </Panel.Heading>
-                                            <Panel.Body collapsible>
-                                                <ListGroup>
-                                                    {recipeList
-                                                        .ingredients
-                                                        .map(ingredient => (
-                                                            <ListGroupItem>{ingredient}</ListGroupItem>
-                                                        ))}
-                                                </ListGroup>
-                                                        <ButtonToolbar>
-                                                            <Button bsStyle="danger">Delete</Button>
-                                                            <Button bsStyle="default">Edit</Button>
-                                                        </ButtonToolbar>
-                                            </Panel.Body>
-                                        </Panel>
-                                    </PanelGroup>
-                                </Col>
-                            ))}
+            <div className="container">
+                {recipes.map((recipeList, index) => (
+                    <PanelGroup accordion id="accordion-uncontrolled-example" defaultActiveKey="2">
+                        <Panel eventKey={index} key={index}>
+                            <Panel.Heading>
+                                <Panel.Title toggle>{recipeList.name}</Panel.Title>
+                            </Panel.Heading>
+                            <Panel.Body collapsible>
+                                <ListGroup key={index}>
+                                    {recipeList
+                                        .ingredients
+                                        .map(ingredient => (
+                                            <ListGroupItem>{ingredient}</ListGroupItem>
+                                        ))}
+                                </ListGroup>
+                                <ButtonToolbar>
+                                    <Button bsStyle="danger" onClick={(event) => this.deleteRecipe(index)}>Delete</Button>
+                                    <Button bsStyle="default">Edit</Button>
+                                </ButtonToolbar>
+                            </Panel.Body>
+                        </Panel>
+                    </PanelGroup>
+                ))}
 
-                    </Row>
-                    <ButtonToolbar>
-                        <Button bsStyle="info">Add Recipes</Button>
-                    </ButtonToolbar>
-
-                    {/*Modal for add recipes code */}
-                    <Modal show={this.state.show} onHide={this.handleClose}>
+                {/*Modal for add recipes code */}
+                <Modal show={this.state.showAdd} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                      <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Modal heading</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                    </Modal.Body>
-                    </Modal>
-                </Grid>
+                    <Modal.Body></Modal.Body>
+                </Modal>
+                <ButtonToolbar>
+                    <Button bsStyle="info">Add Recipes</Button>
+                </ButtonToolbar>
+
             </div>
 
         )

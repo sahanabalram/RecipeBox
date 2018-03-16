@@ -75,24 +75,40 @@ class RecipePanel extends Component {
         });
         this.close();
     }
-// edit recipe
-editRecipeName(name,currentIndex) {
-    let recipes = this.state.recipes.slice();
-    recipes[currentIndex] = {name:name, ingredients: recipes[currentIndex].ingredients};
-    this.setState(recipes);
-}
-// edit ingredient
-editIngredients(ingredients,currentIndex){
-    let recipes = this.state.recipes.slice();
-    recipes[currentIndex] = {name: recipes[currentIndex].name, ingredients: ingredients };
-    this.setState([recipes]);
-}
+    // edit recipe
+    editRecipeName(name, currentIndex) {
+        let recipes = this
+            .state
+            .recipes
+            .slice();
+        recipes[currentIndex] = {
+            name: name,
+            ingredients: recipes[currentIndex].ingredients
+        };
+        this.setState(recipes);
+    }
+    // edit ingredient
+    editIngredients(ingredients, currentIndex) {
+        let recipes = this
+            .state
+            .recipes
+            .slice();
+        recipes[currentIndex] = {
+            name: recipes[currentIndex].name,
+            ingredients: ingredients
+        };
+        this.setState([recipes]);
+    }
     render() {
-        const {recipes, newRecipe} = this.state;
+        const {recipes, newRecipe,currentIndex} = this.state;
         return (
             <div className="container">
                 {recipes.map((recipeList, index) => (
-                    <PanelGroup accordion id="accordion-uncontrolled-example" defaultActiveKey="2" key={index}>
+                    <PanelGroup
+                        accordion
+                        id="accordion-uncontrolled-example"
+                        defaultActiveKey="2"
+                        key={index}>
                         <Panel eventKey={index} key={index}>
                             <Panel.Heading>
                                 <Panel.Title toggle>{recipeList.name}</Panel.Title>
@@ -101,7 +117,7 @@ editIngredients(ingredients,currentIndex){
                                 <ListGroup key={index}>
                                     {recipeList
                                         .ingredients
-                                        .map((ingredient,index) => (
+                                        .map((ingredient, index) => (
                                             <ListGroupItem key={index}>{ingredient}</ListGroupItem>
                                         ))}
                                 </ListGroup>
@@ -124,21 +140,17 @@ editIngredients(ingredients,currentIndex){
                                 Recipe Name</ControlLabel>
                             <FormControl
                                 type="text"
-                                value={recipes.name}
+                                value={recipes[currentIndex].name}
                                 placeholder="Enter recipe name"
                                 onChange=
                                 {(event) => this.editRecipeName(event.target.value)}></FormControl>
                         </FormGroup>
                         <FormGroup controlId="formControlsTextarea">
-                            <ControlLabel>
-                                Ingredients</ControlLabel>
+                            <ControlLabel>Textarea</ControlLabel>
                             <FormControl
-                                type="textarea"
-                                value={newRecipe.ingredients}
-                                placeholder="Enter ingredients (Separated By Comma)"
-                                onChange=
-                                {(event) => this.editIngredients( event.target.value.split(","))}></FormControl>
-
+                                componentClass="textarea"
+                                onChange={(event) => this.editIngredients(event.target.value.split(","), currentIndex)}
+                                placeholder="textarea"/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Titles from './components/Title';
 import Recipes from './components/Recipes'; 
-import RecipeCards from './components/Cards';
+import RecipePanel from './components/Cards';
 import RecipeDetails from './Recipe.json';
 import './App.css';
 
@@ -11,7 +11,7 @@ class App extends Component {
       <div className="App">
       <Titles/>
     {/*<Recipes/>*/}
-      <RecipeCards recipes={RecipeDetails.recipes}/>
+      <RecipePanel recipes={RecipeDetails.recipes}/>
       </div>
     );
   }

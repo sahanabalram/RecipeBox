@@ -58,7 +58,7 @@ class RecipePanel extends Component {
     // open modal for add recipe
     open = (state, currentIndex) => {
         this.setState({[state]: true})
-        // this.setState({currentIndex});
+        this.setState({currentIndex});
     }
     // save new recipe
     saveRecipe(newRecipe) {
@@ -203,7 +203,6 @@ class RecipePanel extends Component {
                 <ButtonToolbar>
                     <Button bsStyle="primary" onClick={(event) => this.open("showAdd",currentIndex)}>Add Recipes</Button>
                 </ButtonToolbar>
-
             </div>
 
         )

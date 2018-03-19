@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import RecipeDetails from './Recipe.json';
 import {
     Panel,
     PanelGroup,
@@ -43,6 +42,7 @@ class RecipePanel extends Component {
             .recipes
             .slice();
         recipes.splice(index, 1);
+        localStorage.setItem("recipes",JSON.stringify(recipes));
         // set the state back to inital state
         this.setState({'recipes': recipes});
     }
@@ -50,7 +50,8 @@ class RecipePanel extends Component {
     close = () => {
         if (this.state.showAdd) {
             this.setState({showAdd: false});
-        } else if (this.state.showEdit) {
+        } 
+        if (this.state.showEdit) {
             this.setState({showEdit: false});
         }
     }
@@ -66,7 +67,8 @@ class RecipePanel extends Component {
             .recipes
             .slice();
         recipes.push(newRecipe);
-        this.setState({'recipes':recipes});
+        localStorage.setItem("recipes",JSON.stringify(recipes));
+        this.setState({'recipes': recipes});
         // reset the recipe
         this.setState({
             newRecipe: {
@@ -86,7 +88,8 @@ class RecipePanel extends Component {
             name: name,
             ingredients: recipes[currentIndex].ingredients
         };
-        this.setState({'recipes':recipes});
+        localStorage.setItem("recipes",JSON.stringify(recipes));
+        this.setState({'recipes': recipes});
     }
     // edit ingredient
     editIngredients(ingredients, currentIndex) {
@@ -98,10 +101,16 @@ class RecipePanel extends Component {
             name: recipes[currentIndex].name,
             ingredients: ingredients
         };
-        this.setState({'recipes':recipes});
+        localStorage.setItem("recipes",JSON.stringify(recipes));
+        this.setState({'recipes': recipes});
+    }
+// local storage
+    componentDidMount() {
+        let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+        this.setState({recipes:recipes});
     }
     render() {
-        const {recipes, newRecipe,currentIndex} = this.state;
+        const {recipes, newRecipe, currentIndex} = this.state;
         return (
             <div className="container">
                 {recipes.map((recipeList, index) => (
@@ -141,7 +150,7 @@ class RecipePanel extends Component {
                                 Recipe Name</ControlLabel>
                             <FormControl
                                 type="text"
-                               value={recipes[currentIndex].name}
+                                value={recipes.name}
                                 placeholder="Enter recipe name"
                                 onChange=
                                 {(event) => this.editRecipeName(event.target.value)}></FormControl>
@@ -151,7 +160,8 @@ class RecipePanel extends Component {
                             <FormControl
                                 componentClass="textarea"
                                 onChange={(event) => this.editIngredients(event.target.value.split(","), currentIndex)}
-                                placeholder="Enter ingredients (Separated By Commas)" value={recipes[currentIndex].ingredients}/>
+                                placeholder="Enter ingredients (Separated By Commas)"
+                                value={recipes.ingredients}/>
                         </FormGroup>
                     </Modal.Body>
                     <Modal.Footer>
@@ -191,7 +201,7 @@ class RecipePanel extends Component {
                 </Modal>
 
                 <ButtonToolbar>
-                    <Button bsStyle="primary" onClick={(event) => this.open("showAdd")}>Add Recipes</Button>
+                    <Button bsStyle="primary" onClick={(event) => this.open("showAdd",currentIndex)}>Add Recipes</Button>
                 </ButtonToolbar>
 
             </div>
